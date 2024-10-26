@@ -15,10 +15,10 @@
  */
 package videoshop.order;
 
-import videoshop.catalog.Disc;
-
 import java.util.Optional;
 
+import org.salespointframework.catalog.Product;
+import org.salespointframework.core.AbstractEntity;
 import org.salespointframework.order.Cart;
 import org.salespointframework.order.Order;
 import org.salespointframework.order.OrderManagement;
@@ -36,6 +36,14 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
+
+import videoshop.catalog.Disc;
+
+
+
+
+
+
 
 /**
  * A Spring MVC controller to manage the {@link Cart}. {@link Cart} instances are held in the session as they're
@@ -148,5 +156,49 @@ class OrderController {
 		model.addAttribute("ordersCompleted", orderManagement.findBy(OrderStatus.COMPLETED));
 
 		return "orders";
+	}
+
+	enum Season {
+		WINTER, SPRING, SUMMER, FALL
+	}
+	
+	public class DiscountCalculator {
+		public static double calculateSeasonalDiscount(double price, Season season) {
+			double discount = 0.0;
+	
+			switch (season) {
+				case WINTER:
+					discount = 0.10; 
+					break;
+				case SPRING:
+					discount = 0.15; 
+					break;
+				case SUMMER:
+					discount = 0.30; 
+					break;
+				case FALL:
+					discount = 0.15; 
+					break;
+			}
+	
+			return price - (price * discount);
+		}
+	}
+
+	@GetMapping("/cart")
+	String basket(@ModelAttribute Cart cart, Model model) {
+    // Berechne den Originalpreis
+   	 	double originalTotal = cart.getPrice().getNumber().doubleValue();
+
+    // Berechne den saisonalen Rabatt und den rabattierten Preis
+   		 Season currentSeason = Season.SUMMER; // Beispielhaft Sommer - kann dynamisch gesetzt werden
+   		 double discountedTotal = DiscountCalculator.calculateSeasonalDiscount(originalTotal, currentSeason);
+   		 double seasonalDiscount = originalTotal - discountedTotal;
+
+    // Füge die Werte zum Model hinzu
+   		 model.addAttribute("originalTotal", originalTotal);
+   		 model.addAttribute("seasonalDiscount", seasonalDiscount);
+   		 model.addAttribute("discountedPrice", discountedTotal);
+		 return "cart"; // Gibt das Thymeleaf-Template 'cart.html' zurück
 	}
 }
