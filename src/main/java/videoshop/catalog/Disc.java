@@ -92,10 +92,10 @@ public class Disc extends Product {
         return comments.stream()
                 .mapToInt(Comment::getRating)
                 .average()
-                .orElse(0.0); 
+                .orElse(5); 
     }
-
-	public double getAveragerating() {
+	
+	public double getAverageRating() {
 		return averageRating(); 
 	}
 }
