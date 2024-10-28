@@ -95,7 +95,7 @@ public class Disc extends Product {
                 .orElse(5); 
     }
 	
-	public double getAverageRating() {
+	public double getAveragerating() {
 		return averageRating(); 
 	}
 }
