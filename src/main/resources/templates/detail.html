@@ -20,6 +20,12 @@
                             <span th:text="${disc.genre}">Action</span>
                             <span th:text="${{disc.price}}">9.99 €</span>
                         </div>
+                        <!-- neue Änderung -->
+                        <div class="average-rating">
+                            <span>Durchschnittliche Bewertung:</span>
+                            <span th:text="${disc.averagerating}">4.5</span> / 5
+                        </div>
+                        <!-- bis hier -->
                         <div class="description">
                             <p>Vorrat:</p>
                             <p th:text="${quantity}">10</p><br/>
@@ -52,7 +58,7 @@
                         <div class="text" th:text="${comment.text}">Guter Film vong Inhalt her</div>
                     </div>
                 </div>
-
+                
                 <form class="ui reply form" role="form" th:object="${commentAndRating}" th:action="@{/disc/{id}/comments(id=${disc.id})}" method="post">
                     <p class="ui negative message" th:if="${#fields.hasErrors('*')}">
                         Einige Angaben sind nicht korrekt.

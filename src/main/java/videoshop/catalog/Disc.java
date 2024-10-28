@@ -15,15 +15,15 @@
  */
 package videoshop.catalog;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.OneToMany;
-
 import java.util.ArrayList;
 import java.util.List;
 
 import org.javamoney.moneta.Money;
 import org.salespointframework.catalog.Product;
+
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
 
 // (｡◕‿◕｡)
 // Da der Shop DVD sowie BluRay verkaufen soll ist es sinnvoll eine gemeinsame Basisklasse zu erstellen.
@@ -82,8 +82,20 @@ public class Disc extends Product {
 	public String getImage() {
 		return image;
 	}
-
+	
 	public DiscType getType() {
 		return type;
+	}
+
+	// neue Änderung
+	private double averageRating() {
+        return comments.stream()
+                .mapToInt(Comment::getRating)
+                .average()
+                .orElse(0.0); 
+    }
+
+	public double getAveragerating() {
+		return averageRating(); 
 	}
 }

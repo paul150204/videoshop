@@ -157,48 +157,4 @@ class OrderController {
 
 		return "orders";
 	}
-
-	enum Season {
-		WINTER, SPRING, SUMMER, FALL
-	}
-	
-	public class DiscountCalculator {
-		public static double calculateSeasonalDiscount(double price, Season season) {
-			double discount = 0.0;
-	
-			switch (season) {
-				case WINTER:
-					discount = 0.10; 
-					break;
-				case SPRING:
-					discount = 0.15; 
-					break;
-				case SUMMER:
-					discount = 0.30; 
-					break;
-				case FALL:
-					discount = 0.15; 
-					break;
-			}
-	
-			return price - (price * discount);
-		}
-	}
-
-	@GetMapping("/cart")
-	String basket(@ModelAttribute Cart cart, Model model) {
-    // Berechne den Originalpreis
-   	 	double originalTotal = cart.getPrice().getNumber().doubleValue();
-
-    // Berechne den saisonalen Rabatt und den rabattierten Preis
-   		 Season currentSeason = Season.SUMMER; // Beispielhaft Sommer - kann dynamisch gesetzt werden
-   		 double discountedTotal = DiscountCalculator.calculateSeasonalDiscount(originalTotal, currentSeason);
-   		 double seasonalDiscount = originalTotal - discountedTotal;
-
-    // Füge die Werte zum Model hinzu
-   		 model.addAttribute("originalTotal", originalTotal);
-   		 model.addAttribute("seasonalDiscount", seasonalDiscount);
-   		 model.addAttribute("discountedPrice", discountedTotal);
-		 return "cart"; // Gibt das Thymeleaf-Template 'cart.html' zurück
-	}
 }

@@ -44,19 +44,10 @@
                 <div class="ui two column centered grid">
                     <div class="four column centered row">
                         <div class="column">
+
                             <div class="ui horizontal statistic">
                                 <div class="label" th:text="#{cart.total}">Summe</div>
                                 <div class="value"><span th:text="${{cart.price}}">1337</span></div>
-                            </div>
-                            
-                            <div class="ui horizontal statistic" th:if="${seasonalDiscount > 0}">
-                                <div class="label" th:text="#{cart.seasonDiscount}">Saisonaler Rabatt</div>
-                                <div class="value" th:text="${seasonalDiscount}">100</div>
-                            </div>
-                            
-                            <div class="ui horizontal statistic">
-                                <div class="label" th:text="#{cart.discountedTotal}">Endpreis nach Rabatt</div>
-                                <div class="value" th:text="${discountedPrice}">1237</div>
                             </div>
                         </div>
                         <div class="column">

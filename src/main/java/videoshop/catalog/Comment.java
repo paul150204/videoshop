@@ -15,12 +15,12 @@
  */
 package videoshop.catalog;
 
+import java.time.LocalDateTime;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-
-import java.time.LocalDateTime;
 
 // (｡◕‿◕｡)
 // Eigene Entity Klasse um Kommentare für Discs zu speichern
@@ -66,7 +66,7 @@ public class Comment {
 	public int getRating() {
 		return rating;
 	}
-
+	
 	/*
 	 * (non-Javadoc)
 	 * @see java.lang.Object#toString()
